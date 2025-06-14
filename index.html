@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Tracker :></title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=8e6b4ae86367fb81567b9c0dc4898b01&libraries=services&autoload=false"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+  <header>
+    <h1 id="title">우체국 택배 추적 시스템</h1>
+
+    <form id="tracking_form" onsubmit="getinfos(this); return false;">
+        <span><input type="text" placeholder="등기 번호를 입력하세요" id="delivery_number"></span>
+        <button type="submit" id="track_button">추적</button>
+    </form>
+  </header>
+
+  <div class="layout">
+    <div id="map"></div>
+
+    <article>
+      <div id="infos">
+        <div class="info-boxes">
+          <h3>등기번호</h3>
+          <h3 id="regiNo" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>보낸 이</h3>
+          <h3 id="senderName" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>보낸 날자</h3>
+          <h3 id="senderData" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>받는 이</h3>
+          <h3 id="receiveName" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>배달 상태</h3>
+          <h3 id="statue" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>운송 종류</h3>
+          <h3 id="expressType" class="info_contents">정보 없음</h3>
+        </div>
+
+        <div class="info-boxes">
+          <h3>마지막 위치/시간</h3>
+          <h3 id="time+location" class="info_contents">정보 없음</h3>
+        </div>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

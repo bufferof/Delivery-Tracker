@@ -1,0 +1,108 @@
+* {
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: aliceblue;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(0, 0, 0);
+  scroll-behavior: smooth;
+}
+
+#title {
+    font-size: 2vw;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 1.5%;
+    color: #00C896;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 40vw;
+  margin-left: 2vw;
+  height: 85vh;          
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  height: calc(100% - 60px);
+  align-items: flex-start;
+}
+
+#map {
+  height: 85vh;
+  width: 85vh;
+  margin-left: 1vw;
+  margin-top: 0.5vw;
+  border: 2px solid #00C896;
+  border-radius: 10px;
+}
+
+#delivery_number {
+  padding: 10px;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid #e0e0e0;
+  flex: 1 1 60%;
+  min-width: 250px;
+  height: 45px;
+}
+
+#track_button {
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 2px solid #00d49f;
+  font-weight: bold;
+  background-color: #00C896;
+  color: white;
+  height: 45px;
+  padding: 0 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+#tracking_form {
+  padding-right: 0.8%;
+}
+
+#infos {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5vh;
+}
+
+.info-boxes {
+  display: flex;
+  justify-content: space-between;
+
+  border: 2px solid #00d49f;
+  border-radius: 10px;
+
+  vertical-align: middle;
+
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+}
+
+.info-boxes h3 {
+  font-weight: bold;
+}

@@ -136,7 +136,7 @@ function getinfos(form){
     }
 
     const geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(address, function(result, status) {
+    geocoder.addressSearch(location, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         add_marker(MAP_INSTANCE, coords, position_info);

@@ -102,6 +102,7 @@ function getinfos(form){
     const detail_node = xml.querySelectorAll('detaileTrackList');
     let latest_node = null;
 
+
     let max_node = 0;
     for(let it of detail_node){
       if (parseInt(it.querySelector('sortNo').textContent) > max_node) {
@@ -109,6 +110,9 @@ function getinfos(form){
         latest_node = it;
       }
     }
+
+    console.log(latest_node);
+
 
     let location = null;
     var position_info = null;
@@ -135,6 +139,7 @@ function getinfos(form){
       }
     }
 
+    location = "부산광역시 금정구 금정로 123";
     console.log(`위치 정보: ${location}`);
     const geocoder = new kakao.maps.services.Geocoder();
     geocoder.addressSearch(location, function(result, status) {

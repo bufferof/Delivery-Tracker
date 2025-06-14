@@ -1,5 +1,4 @@
 const API_KEY = 'UGJ8gXjCfh%2FC8Ek72mAP4Zel%2BCY%2FjdLnBzbvEDUa60gqxuHTPl1RKCeTevItd%2FFRT6NjQsY7fgdnM3OMSMTXKA%3D%3D';
-const PROXY = 'https://cors-anywhere.herokuapp.com/';
 
 var Current_Position = null;
 var MAP_INSTANCE = null;
@@ -112,7 +111,7 @@ function getinfos(form){
 
   const delivery_num = form.delivery_number.value;
 
-  fetch(`${PROXY}http://openapi.epost.go.kr/trace/retrieveLongitudinalCombinedService/retrieveLongitudinalCombinedService/getLongitudinalCombinedList?ServiceKey=${API_KEY}&rgist=${delivery_num}`)
+  fetch(`http://openapi.epost.go.kr/trace/retrieveLongitudinalCombinedService/retrieveLongitudinalCombinedService/getLongitudinalCombinedList?ServiceKey=${API_KEY}&rgist=${delivery_num}`)
   .then(response => response.text())
   .then(async data => {
     const parser = new DOMParser();

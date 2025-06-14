@@ -118,6 +118,11 @@ function getinfos(form){
     const parser = new DOMParser();
     const xml = parser.parseFromString(data, "text/xml");
 
+    if(xml.querySelector('successYN') == null){
+      alert("뭔가 잘못됨");
+      return;
+    }
+
     if(xml.querySelector('successYN').textContent!= 'Y'){
       alert("조회 결과가 없습니다.");
       document.getElementById('track_button').innerText = "추적";

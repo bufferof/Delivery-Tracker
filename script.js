@@ -1,7 +1,3 @@
-if(window.location.href.search("http://127.0.0.1:5500")!=-1){
-  alert("이 페이지는 라이브 서버로 작동하지 않습니다...");
-}
-
 const API_KEY = 'UGJ8gXjCfh%2FC8Ek72mAP4Zel%2BCY%2FjdLnBzbvEDUa60gqxuHTPl1RKCeTevItd%2FFRT6NjQsY7fgdnM3OMSMTXKA%3D%3D';
 const PROXY = 'https://cors-anywhere.herokuapp.com/';
 
@@ -47,6 +43,27 @@ function isdigit(data) {
   return !isNaN(data) && !isNaN(parseFloat(data));
 }
 
+
+async function getPostOfficeByName(targetName) {
+  
+  let page = 1;
+  const per = 100;
+  const max = 35;
+
+  while (page <= max) {
+    const result = await fetch(`https://api.odcloud.kr/api/15070368/v1/uddi:cea8854d-35c4-4a7f-a100-f241ea289d76?page=${page}&perPage=${per}&serviceKey=${API_KEY}`);
+    const json = await result.json();
+    const matcher = json.data.filter(item=> item["우체국명"] === targetName);
+
+    if (matcher.length > 0) {
+      return matcher[0]; 
+    }
+    page++;
+  }
+
+  return false; 
+}
+
 function add_marker(map, position, title){
   const marker = new kakao.maps.Marker({
     position:position,
@@ -68,7 +85,7 @@ function add_marker(map, position, title){
   })
 
   const info_window = new kakao.maps.InfoWindow({
-    content: `<div style="padding:5px; font-weight:bold; color:#000;">${title}</div>`,
+    content: `<div style="padding:2px; font-size:13px; color:#000; width:auto;">${title}</div>`,
   })
 
   kakao.maps.event.addListener(marker,'click',function(){
@@ -80,8 +97,16 @@ function add_marker(map, position, title){
 }
 
 function getinfos(form){
+  document.getElementById('track_button').innerText = "로딩중";
+  document.getElementById('track_button').disabled = true;
+
+  console.log("wef");
+  
+
   if(!isdigit(form.delivery_number.value)){
     alert("올바른 등기번호를 입력해주세요");
+    document.getElementById('track_button').innerText = "추적";
+    document.getElementById('track_button').disabled = false;
     return;
   }
 
@@ -89,12 +114,14 @@ function getinfos(form){
 
   fetch(`${PROXY}http://openapi.epost.go.kr/trace/retrieveLongitudinalCombinedService/retrieveLongitudinalCombinedService/getLongitudinalCombinedList?ServiceKey=${API_KEY}&rgist=${delivery_num}`)
   .then(response => response.text())
-  .then(data => {
+  .then(async data => {
     const parser = new DOMParser();
     const xml = parser.parseFromString(data, "text/xml");
 
     if(xml.querySelector('successYN').textContent!= 'Y'){
       alert("조회 결과가 없습니다.");
+      document.getElementById('track_button').innerText = "추적";
+      document.getElementById('track_button').disabled = false;
       return;
     }
 
@@ -110,8 +137,6 @@ function getinfos(form){
         latest_node = it;
       }
     }
-
-    console.log(latest_node);
 
 
     let location = null;
@@ -139,10 +164,19 @@ function getinfos(form){
       }
     }
 
-    location = "부산광역시 금정구 금정로 123";
-    console.log(`위치 정보: ${location}`);
+    let poffice_data = await getPostOfficeByName(location);
+
+    if(poffice_data == false){
+      alert("우체국이 존재하지 않습니다...");
+      document.getElementById('track_button').innerText = "추적";
+      document.getElementById('track_button').disabled = false;
+      return;
+    }
+
+    poffice_data = poffice_data['주소(도로명)'];
+
     const geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(location, function(result, status) {
+    geocoder.addressSearch(poffice_data, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         add_marker(MAP_INSTANCE, coords, position_info);
@@ -151,4 +185,7 @@ function getinfos(form){
       }
     });
   });
+
+  document.getElementById('track_button').innerText = "추적";
+  document.getElementById('track_button').disabled = false;
 };

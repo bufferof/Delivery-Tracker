@@ -111,7 +111,7 @@ function getinfos(form){
 
   const delivery_num = form.delivery_number.value;
 
-  fetch(`https://delivery-tracker.vercel.app/api/epost?delivery_num=${delivery_num}`)
+  fetch(`https://delivery-tracker-three.vercel.app/api/epost?delivery_num=${delivery_num}`)
   .then(response => response.text())
   .then(async data => {
     const parser = new DOMParser();

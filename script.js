@@ -135,6 +135,7 @@ function getinfos(form){
       }
     }
 
+    console.log(`위치 정보: ${location}`);
     const geocoder = new kakao.maps.services.Geocoder();
     geocoder.addressSearch(location, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {

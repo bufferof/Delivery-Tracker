@@ -111,7 +111,7 @@ function getinfos(form){
 
   const delivery_num = form.delivery_number.value;
 
-  fetch(`http://openapi.epost.go.kr/trace/retrieveLongitudinalCombinedService/retrieveLongitudinalCombinedService/getLongitudinalCombinedList?ServiceKey=${API_KEY}&rgist=${delivery_num}`)
+  fetch(`https://delivery-tracker.vercel.app/api/epost?delivery_num=${delivery_num}`)
   .then(response => response.text())
   .then(async data => {
     const parser = new DOMParser();
